@@ -1,0 +1,8 @@
+RFID korttien UID:
+
+Valkoinen kortti 1:
+	6B D5 25 22
+	1072133734
+
+Sininen muovi 1:
+	67 6E 0F 33
