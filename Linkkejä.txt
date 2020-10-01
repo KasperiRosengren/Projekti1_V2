@@ -7,3 +7,13 @@ Arduino:
 		https://randomnerdtutorials.com/control-esp32-esp8266-gpios-from-anywhere/
 		https://www.youtube.com/watch?v=-9D-vtZ-wl4&ab_channel=learnelectronics
 		https://randomnerdtutorials.com/esp8266-web-server/
+
+	RFID:
+		Joku linkki
+
+	Numpad:
+		Joku linkki
+
+Python:
+	Database:
+		Kuinka hakea dataa
