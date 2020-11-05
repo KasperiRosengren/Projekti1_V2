@@ -1,11 +1,9 @@
-# Projekti1_V2
-Vuosi 2, Projekti 1
+# Project 1 of year 2
 
-Tämä on toisen vuoden ensimmäisen projektin repository.
-Ryhmän jäseninä on:
+This is the git. repository for our first school project of the second year.
+Group members are:
   Kasperi Rosengren,
   Antti-Matias Tuovinen,
   Joni Hourula.
 
-Projektissa on tarkoituksena tehdä jokin Arduino pohjainen IoT-laite joka kerää sensori dataa jota se lähettää tietokantaan, 
-josta pythonilla voidaan lukea sitä ja tehdä sillä datalla jotain. Tietokannalle rakennetaan myös selain liittymä
+The goal of this project is to have a working IoT-device with working webUI and some python machine learning.
