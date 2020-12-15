@@ -63,6 +63,8 @@
 #include <EEPROM.h>     // We are going to read and write PICC's UIDs from/to EEPROM
 #include <SPI.h>        // RC522 Module uses SPI protocol
 #include <MFRC522.h>  // Library for Mifare RC522 Devices
+#include <HTTPClient.h>
+#include <WiFi.h>
 
 /*
   Instead of a Relay you may want to use a servo. Servos can lock and unlock door locks too
@@ -92,6 +94,10 @@
 #define blueLed 14
 
 #define wipeB 25    // Button pin for WipeMode
+
+// wifi
+const char* ssid = "kassu2.4GHZ";
+const char* password = "omaverkko";
 
 Servo myservo;  // create servo object to control a servo
 // 16 servo objects can be created on the ESP32
@@ -133,6 +139,24 @@ void setup() {
   EEPROM.begin(4096);
   SPI.begin();           // MFRC522 Hardware uses SPI protocol
   mfrc522.PCD_Init();    // Initialize MFRC522 Hardware
+
+  Serial.print("connecting to ");
+  Serial.print(ssid);
+
+  //connect to wifi
+  WiFi.begin(ssid, password);
+
+  //wait until connection has been confirmed
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
+
+  //debugging - output the ip address of the esp
+  Serial.println("WiFi connected");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
 
   // Allow allocation of all timers
   ESP32PWM::allocateTimer(0);
@@ -548,7 +572,7 @@ void successDelete() {
 ////////////////////// Check readCard IF is masterCard   ///////////////////////////////////
 // Check to see if the ID passed is the master programing card
 bool isMaster( byte test[] ) {
-	return checkTwo(test, masterCard);
+  return checkTwo(test, masterCard);
 }
 
 bool monitorWipeButton(uint32_t interval) {
