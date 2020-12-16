@@ -183,8 +183,8 @@ void setup() {
   //mfrc522.PCD_SetAntennaGain(mfrc522.RxGain_max);
 
   Serial.println(F("Access Control Example v0.1"));   // For debugging purposes
-  ShowReaderDetails();  // Show details of PCD - MFRC522 Card Reader details
-
+  //ShowReaderDetails();  // Show details of PCD - MFRC522 Card Reader details
+}
 
 ///////////////////////////////////////// Main Loop ///////////////////////////////////
 void loop () {

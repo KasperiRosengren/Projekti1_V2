@@ -65,7 +65,6 @@
 #include <MFRC522.h>  // Library for Mifare RC522 Devices
 #include <HTTPClient.h>
 #include <WiFi.h>
-#include <Arduino_JSON.h>
 
 /*
   Instead of a Relay you may want to use a servo. Servos can lock and unlock door locks too
@@ -133,6 +132,7 @@ byte readCard[4];   // Stores scanned ID read from RFID Module
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 char piccUID[32];
+char received[32];
 
 ///////////////////////////////////////// Setup ///////////////////////////////////
 void setup()
@@ -196,6 +196,7 @@ void setup()
 void loop ()
 {
   getID(piccUID);
+  getData(received);
 }
 
 /////////////////////////////////////////  Access Granted    ///////////////////////////////////
@@ -348,4 +349,36 @@ void normalModeOn ()
   digitalWrite(redLed, LED_OFF);  // Make sure Red LED is off
   digitalWrite(greenLed, LED_OFF);  // Make sure Green LED is off
   //digitalWrite(relay, HIGH);    // Make sure Door is Locked
+}
+
+void getData(char getData[32]) {
+  //Check WiFi connection status
+  if(WiFi.status()== WL_CONNECTED){
+    HTTPClient http;Serial;
+    
+    // Your Domain name with URL path or IP address with path
+    http.begin(serverName2);
+    
+    int httpCode = http.GET(); //Send the request
+      Serial.print("Get command: ");
+      Serial.println(serverName);
+ 
+      if (httpCode > 0) { //Check the returning code
+        String payload = http.getString();   //Get the request response payload
+        Serial.println("payload: " + payload);                     //Print the response payload
+        payload.toCharArray(getData,32);
+        Serial.println(getData);
+                
+      } else {
+        Serial.println("No response");
+      }
+      Serial.println("http code: " + String(httpCode));
+      http.end();   //Close connection
+     
+    }
+  else
+  {   
+    Serial.println("--> connection failed");
+  }
+  delay(2000);
 }
