@@ -47,15 +47,17 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 char piccUID[32];
 char received[32];
+String allowed = "1 \n";
+String denied = "2 \n";
 
 
-void setup() 
+void setup()
 {
   // put your setup code here, to run once:
   Serial.begin(115200);  // Initialize serial communications with PC
   SPI.begin();           // MFRC522 Hardware uses SPI protocol
   mfrc522.PCD_Init();    // Initialize MFRC522 Hardware
-  
+
   //Arduino Pin Configuration
   pinMode(redLed, OUTPUT);
   pinMode(greenLed, OUTPUT);
@@ -63,7 +65,7 @@ void setup()
   digitalWrite(redLed, LOW);  // Make sure led is off
   digitalWrite(greenLed, LOW);  // Make sure led is off
   digitalWrite(blueLed, LOW); // Make sure led is off
-  
+
   // Allow allocation of all timers
   ESP32PWM::allocateTimer(0);
   ESP32PWM::allocateTimer(1);
@@ -71,7 +73,7 @@ void setup()
   ESP32PWM::allocateTimer(3);
   myservo.setPeriodHertz(50);    // standard 50 hz servo
   myservo.attach(servoPin, 500, 2400); // attaches the servo on pin 33 to the servo object
-  
+
   //If you set Antenna Gain to Max it will increase reading distance
   //mfrc522.PCD_SetAntennaGain(mfrc522.RxGain_max);
 
@@ -93,7 +95,7 @@ void setup()
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-   //create a task that will be executed in the Task1code() function, with priority 1 and executed on core 0
+  //create a task that will be executed in the Task1code() function, with priority 1 and executed on core 0
   xTaskCreatePinnedToCore(
     Task1code,   /* Task function. */
     "Task1",     /* name of task. */
@@ -122,40 +124,41 @@ void setup()
 }
 
 
-//Task1code: 
-void Task1code( void * pvParameters ) {
+//Task1code:
+void Task1code( void * pvParameters )
+{
   Serial.print("Task1 running on core ");
   Serial.println(xPortGetCoreID());
 
-  for (;;) 
+  for (;;)
   {
     digitalWrite(greenLed, HIGH);
     delay(300);
     digitalWrite(greenLed, LOW);
-    delay(300); 
+    delay(300);
     getID(piccUID);
   }
 }
 
-//Task2code: 
-void Task2code( void * pvParameters ) 
+//Task2code:
+void Task2code( void * pvParameters )
 {
   Serial.print("Task2 running on core ");
   Serial.println(xPortGetCoreID());
 
-  for (;;) 
+  for (;;)
   {
     digitalWrite(blueLed, HIGH);
     delay(300);
     digitalWrite(blueLed, LOW);
     delay(300);
     getData(received);
-  }  
+  }
 }
 
-void loop() 
+void loop()
 {
-  
+
 }
 
 /////////////////////////////////print RFID readers details///////////////////////////
@@ -199,6 +202,8 @@ char getID(char uid[32])
   array_to_string(mfrc522.uid.uidByte, 4, uid); //Insert (byte array, length, char array for output)
   Serial.println(uid); //Print the output uid string
   mfrc522.PICC_HaltA();
+  SendData(uid);
+  delay(5000);
   SendData(uid);
 }
 
@@ -260,40 +265,55 @@ void SendData(char UID[32])
 }
 
 //////////////////////////////////////Get data from server///////////////////////////////////
-void getData(char getData[32]) {
+void getData(char getData[32])
+{
   //Check WiFi connection status
-  if(WiFi.status()== WL_CONNECTED){
-    HTTPClient http;Serial;
-    
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http; Serial;
+
     // Your Domain name with URL path or IP address with path
     http.begin(serverName2);
-    
+
     int httpCode = http.GET(); //Send the request
-      Serial.print("Get command: ");
-      Serial.println(serverName);
- 
-      if (httpCode > 0) { //Check the returning code
-        String payload = http.getString();   //Get the request response payload
-        Serial.println("payload: " + payload);                     //Print the response payload
-        payload.toCharArray(getData,32);
-        Serial.println(getData);
-                
-      } else {
-        Serial.println("No response");
+    Serial.print("Get command: ");
+    Serial.println(serverName);
+
+    if (httpCode > 0) { //Check the returning code
+      String payload = http.getString();   //Get the request response payload
+      Serial.println("payload: " + payload);                     //Print the response payload
+      //payload.toCharArray(getData, 32);
+      //Serial.println(getData);
+      if (payload == allowed)
+      {
+        Serial.println("You shall pass");
+        granted(5000);
       }
-      Serial.println("http code: " + String(httpCode));
-      http.end();   //Close connection
-     
+      else if (payload == denied)
+      {
+        Serial.println("You Shall not pass");
+        digitalWrite(redLed, HIGH);
+        delay(600);
+        digitalWrite(redLed, LOW);
+      }
+      
+
+    } else {
+      Serial.println("No response");
     }
+    Serial.println("http code: " + String(httpCode));
+    http.end();   //Close connection
+
+  }
   else
-  {   
+  {
     Serial.println("--> connection failed");
   }
   delay(2000);
 }
 
 /////////////////////////////////////////  Access Granted    ///////////////////////////////////
-void granted ( uint16_t setDelay) {
+void granted ( uint16_t setDelay)
+{
   digitalWrite(blueLed, LOW);   // Turn off blue LED
   digitalWrite(redLed, LOW);  // Turn off red LED
   digitalWrite(greenLed, HIGH);   // Turn on green LED
@@ -308,14 +328,6 @@ void granted ( uint16_t setDelay) {
     delay(15);             // waits 15ms for the servo to reach the position
   }
   delay(1000);            // Hold green LED on for a second
-}
-
-///////////////////////////////////////// Access Denied  ///////////////////////////////////
-void denied() {
-  digitalWrite(greenLed, LOW);  // Make sure green LED is off
-  digitalWrite(blueLed, LOW);   // Make sure blue LED is off
-  digitalWrite(redLed, HIGH);   // Turn on red LED
-  delay(1000);
 }
 
 //////////////////////////////////////// Normal Mode Led  ///////////////////////////////////
