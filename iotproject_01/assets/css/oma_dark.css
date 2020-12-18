@@ -1,0 +1,317 @@
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #424242
+}
+     
+li{
+  float: left;
+  border-right:1px solid #616161;
+}
+     
+li:last-child{
+  border-right: none;
+}
+     
+li a{
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 1.5em;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+     
+li a:hover:not(.active){
+  background-color: #616161
+}
+     
+.active{
+  background-color: #212121
+}
+
+div.containernav{
+  display: block;
+  position: sticky;
+  max-width: 1500px;
+  margin: auto;
+  border-right: 10px solid #121212;
+  border-left: 10px solid #121212;
+}
+
+body{
+  background-color: #121212;
+  color: white;
+  font-size: 100%; 
+}
+/*
+  Classes for homepage divisions
+*/
+div.homemain {
+ display: block;
+ background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/rfid_reader.jpg");
+ height: 720px;
+ max-width: 1280px;
+ background-color: #121212;
+ background-position: center;
+ color: white;
+ text-align: center;
+ margin: auto;
+}
+
+div.homedevice {
+ display: block;
+ background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/ard_rasp.jpg");
+ height: 720px;
+ max-width: 1280px;
+ background-color: #121212;
+ background-position: center;
+ color: white;
+ text-align: center;
+ margin: auto;
+}
+
+div.homedata {
+ display: block;
+ background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/data.jpg");
+ height: 720px;
+ max-width: 1280px;
+ background-color: #121212;
+ background-position: center;
+ color: white;
+ text-align: center;
+ margin: auto;
+}
+
+div.homeserver {
+ display: block;
+ background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/server.jpg");
+ height: 720px;
+ max-width: 1280px;
+ background-color: #121212;
+ background-position: center;
+ color: white;
+ text-align: center;
+ margin: auto;
+}
+/*
+  Classes for User page divisions
+*/
+
+div.userpage_left{
+  display: block;
+ background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/rfid_reader.jpg");
+ height: 720px;
+ background-color: #121212;
+ background-position: center;
+ color: white;
+ text-align: center;
+
+}
+
+div.userpage_right{
+  display: block;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/rfid_reader.jpg");
+  height: 720px;
+  background-color: #121212;
+  background-position: center;
+  color: white;
+  text-align: center;
+  margin: auto;
+}
+
+div.contactsright{
+  display: block;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/DestroyIphone.png");
+  height: 668px;
+  background-color: #121212;
+  background-position: center;
+  color: white;
+  text-align: center;
+  margin: auto;
+}
+
+div.contactsleft{
+  display: block;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/PainHarold.jpg");
+  height: 650px;
+  background-color: #121212;
+  background-position: center;
+  color: white;
+  text-align: center;
+  margin: auto;
+}
+
+.userpageleft{
+  display: block;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/HandGlobe.png");
+  height: 630px;
+  max-width: 960px;
+  background-color: #121212;
+  background-position: center;
+  color: white;
+  text-align: center;
+  margin: auto;
+}
+
+.contactspage{
+  display: block;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url("../pics/PainHarold.jpg");
+  height: 650px;
+  max-width: 1200px;
+  background-color: #121212;
+  background-position: center;
+  color: white;
+  text-align: center;
+  margin: auto;
+}
+.split {
+  width: 50%;
+  overflow-x: hidden;
+}
+
+.left {
+  position: relative;
+  float: left;
+  text-align: center;
+}
+
+.right {
+  position: relative;
+  right: 0;
+  text-align: center;
+}
+
+.datapagetable{
+  max-height: 700px;
+  overflow-y: scroll;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+}
+
+
+div.container{
+  max-width:1500px;
+  margin: auto;
+  border-right: 10px solid #121212;
+  border-left: 10px solid #121212;
+
+}
+
+div.devicespage{
+  max-width: 800px;
+  margin-left: 40%;
+  border-right: 10px solid #121212;
+  border-left: 10px solid #121212;
+
+}
+
+.textlink{
+   text-decoration: none;
+   color: white;
+}
+
+.datatable{
+  border: 2px solid white;
+  font-size: 1.14em;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.datatabletable{
+  margin: auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dataheader{
+  background: #121212;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-collapse: separate;
+}
+
+input{
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  background-color: #616161;
+  font-size: 1.1em;
+  color: white;
+}
+
+.radiobutton{
+  width: 3%;
+}
+
+.radiolabel{
+  font-size: 1.2em;
+}
+
+input:focus {
+  background-color: #424242;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #616161;
+  width: 20%;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/*
+  Font settings
+*/
+
+h1 {
+  font-size: 4em; /* 40px/16=2.5em */
+}
+
+h2 {
+  font-size: 3em; /* 30px/16=1.875em */
+}
+
+p {
+  font-size: 1.5em; /* 16px/16=1em */
+}
+
+h2.maintitle{
+  text-align: center;
+}
